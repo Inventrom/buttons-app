@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<body style="border:2px solid black; border-radius:40px; height:40%; width:350px; margin-top:5%;
+             margin-left:36%;">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/button.css">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script>
+        window.onload = function () {
+            setInterval(function () {
+                $.get("/analogRead?pin=A0&state=HIGH&deviceName={{ Name }}", function (success, value) {
+                    console.log('analog');
+                    obj = JSON.parse(success);
+                    console.log(obj['value']);
+                    if (obj['value'] == "command unsuccessful" || obj['value'] == "Device does not exist")
+                    //alert("connect bolt");
+                    {
+                        $('.analog').text('X');
+                        $('#text1').text('BOLT OFFLINE');
+                    }
+                    else
+                        $('.analog').text(obj['value']);
+                });
+            }, 10000);
+        };
+    </script>
+
+    
+    <div class="container">
+        <div style="display:table-cell; vertical-align:middle; text-align:center">
+            <img style="width:150px;margin-left:60px;display: block " src="../static/images/ant.jpg" alt="" />
+        </div>
+        <div class="row" id="row1">
+            <div id="circle1" style="float:left; font-size:8pt;background:#3f3c3b;color:grey;">GND</div>
+
+            <div id="circle2" style="margin-left:250px; font-size:8pt;background:#3f3c3b;color:grey;">GND</div>
+        </div>
+        <div class="row" id="row2">
+            <div id="circle3" style="float:left; font-size:10pt; background:#800000;color:grey;" >5V</div>
+            <div id="circle4" style="margin-left:250px; font-size:10pt; background:#800000;color:grey;">5V</div>
+        </div>
+
+        <div class="row" id="row3" style="margin-top:10px;">
+            <div class="tc" id="circle5" data-id="t1" data-pin="1" style="float:left;">X</div>
+            <div class="toggle" value="1" id="t" style="margin-left:8px; float:left; margin-top:10px;border:4px solid #03b9e2; border-radius:8px; font-weight:bold;">
+                <input class="tg1" id="t1" data-cid="circle5" data-pin="1" type="checkbox" data-toggle="toggle" data style="ios" data-off="D1:I/P" data-on="D1:O/P" data-onstyle="success" data-offstyle="danger" data-size="small" data-width="1%">
+            </div>
+            <div id="circle6" style="margin-left:250px; font-size:12pt; ">Tx</div>
+        </div>
+
+        <div class="row" id="row4" style="margin-top:10px;">
+            <div class="tc" id="circle7" data-id="t2" data-pin="2" style="float:left; ">X</div>
+            <div class="toggle" value="2" style="margin-left:8px; float:left; margin-top:10px;border:4px solid #03b9e2; border-radius:8px;">
+                <input class="tg1" id="t2" data-cid="circle7" data-pin="2" type="checkbox" data-toggle="toggle" data-off="D2:I/P" data-on="D2:O/P" data-onstyle="success" data-offstyle="danger" data-size="small" data-width="1%">
+            </div>
+            <div id="circle8" style="margin-left:250px; font-size:12pt; ">Rx</div>
+        </div>
+        <div class="row" id="row5" style="margin-top:10px;">
+            <div class="tc" id="circle9" data-id="t3" data-pin="3" style="float:left;">X</div>
+            <div class="toggle" value="3" style="margin-left:8px; float:left; margin-top:10px;border:4px solid #03b9e2; border-radius:8px;">
+                <input class="tg1" id="t3" data-cid="circle9" data-pin="3" type="checkbox" data-toggle="toggle" data-size="small" data-width="1%" data-off="D3:I/P" data-on="D3:O/P" data-onstyle="success" data-offstyle="danger">
+            </div>
+            <div style="margin-left:60px; float:left; margin-top:10px; font-size:12pt; border:2px solid black; border-radius:10px;background:#d3d3d3;padding-top:5px;padding-bottom:20px; width: 50px !important; height:2px; text-align:center;"><strong>A0:IP</strong></div>
+            <div class="analog" id="circle10" style="margin-left:250px; background:#d3d3d3; color:black; font-size:12pt;">X</div>
+        </div>
+        <div class="row" id="row6" style="margin-top:10px;">
+            <div class="tc" id="circle11" data-id="t4" data-pin="4" style="float:left;">X</div>
+            <div class="toggle" value="4" style="margin-left:8px;float:left; margin-top:10px;border:4px solid #03b9e2; border-radius:8px; text-align:center;">
+                <input style="width:15%;" class="tg1" id="t4" data-cid="circle11" data-pin="4" type="checkbox" data-toggle="toggle" data-off="D4:I/P" data-on="D4:O/P" data-onstyle="success" data-offstyle="danger" data-size="small" data-width="1%">
+            </div>
+            <div class="toggle" value="0" style="margin-left:45px; float:left; margin-top:10px; border:4px solid #03b9e2; border-radius:8px;width:30px;">
+                <input type="checkbox" class="tg1" id="t5" data-cid="circle12" data-pin="0" data-toggle="toggle" data style="ios" data-off="D0:I/P" data-on="D0:O/P" data-onstyle="success" data-offstyle="danger">
+            </div>
+            <div class="tc" id="circle12" data-id="t5" data-pin="0" style="margin-left:250px; ">X</div>
+        </div>
+        <div class="row" id="row7" style="margin-top:10px;">
+            <div id="circle13" style="float:left; font-size:8pt;background:#3f3c3b;color:grey;">GND</div>
+            <div id="circle14" style="margin-left:250px; font-size:8pt;background:#3f3c3b;color:grey;">GND</div>
+        </div>
+        <div class="row" id="row8" style="margin-top:10px;">
+            <div id="circle15" style="float:left; font-size:8pt;background:#800000;color:grey;">3.3V</div>
+            <div id="text1" style="float:left; color:black; text-align:center; margin-left:30px; margin-top:10px; font-size:15pt; font-style:italic;"><strong>Touch to toggle</strong></div>
+            <div id="circle16" style="margin-left:250px; font-size:8pt; background:#800000;color:grey;">3.3V</div>
+        </div>
+
+    </div>
+
+
+    <script>
+        $(function () {
+            var $head = $(".row");
+            var $funcir = $(".tc");
+            var $inputs = $(".tg1");
+            // $inputs.onr
+            $inputs.ready(function () {
+                var $input = $(this);
+                var pin = $input.data("pin");
+                //var pin1 = Array('0', '1', '2', '3', '4');
+                var url = "/digitalMultiRead?pins=0,1,2,3,4&deviceName={{ Name }}"
+                    console.log(url);
+                var pin2;
+                //console.log(pin2);
+                $.get(url, function (success, value) {
+
+                    obj = JSON.parse(success);
+                    pin2 = (obj['value']).split(',');
+                    console.log(pin2);
+                    if(pin2=="command unsuccessful" || pin2=="Device does not exist")
+                        $('#text1').text('BOLT OFFLINE');
+                    //console.log(pin2[1]);
+                    for (i = 0; i < 5; i++) {
+                        switch (i) {
+                        case 0:
+                            if (pin2[i] == '0') {
+                                $('#circle12').text("LOW");
+                                $('#circle12').css({
+                                    backgroundColor: 'black'
+                                });
+                                break;
+                            } else {
+                                $('#circle12').text("HIGH");
+                                $('#circle12').css({
+                                    backgroundColor: 'red'
+                                });
+                                break;
+                            }
+
+                        case 1:
+                            if (pin2[i] == '0') {
+                                $('#circle5').text("LOW");
+                                $('#circle5').css({
+                                    backgroundColor: 'black'
+                                });
+                                break;
+                            } else {
+                                $('#circle5').text("HIGH");
+                                $('#circle5').css({
+                                    backgroundColor: 'red'
+                                });
+                                break;
+                            }
+                        case 2:
+                            if (pin2[i] == '0') {
+                                $('#circle7').text("LOW");
+                                $('#circle7').css({
+                                    backgroundColor: 'black'
+                                });
+                                break;
+                            } else {
+                                $('#circle7').text("HIGH");
+                                $('#circle7').css({
+                                    backgroundColor: 'red'
+                                });
+                                break;
+                            }
+                        case 3:
+                            if (pin2[i] == '0') {
+                                $('#circle9').text("LOW");
+                                $('#circle9').css({
+                                    backgroundColor: 'black'
+                                });
+                                break;
+                            } else {
+                                $('#circle9').text("HIGH");
+                                $('#circle9').css({
+                                    backgroundColor: 'red'
+                                });
+                                break;
+                            }
+                        default:
+                            if (pin2[i] == '0') {
+                                $('#circle11').text("LOW");
+                                $('#circle11').css({
+                                    backgroundColor: 'black'
+                                });
+                                break;
+                            } else {
+                                $('#circle11').text("HIGH");
+                                $('#circle11').css({
+                                    backgroundColor: 'red'
+                                });
+                                break;
+                            }
+                        }
+                    }
+                });
+            });
+
+
+            $inputs.change(function () {
+                var $funcir = $(".tc");
+                var $input = $(this);
+                var pin = $input.data("pin");
+                console.log($input.prop("checked"));
+                if ($input.prop("checked")) {
+                    //console.log('hello');
+                    var cid = $input.data("cid")
+                        , $circle = $("#" + cid);
+
+                    $circle.css('cursor', 'pointer');
+
+
+                    var circtext = $circle.text();
+                    console.log(circtext);
+                    var $circle = $(".tc");
+
+                    if (circtext == "0" || circtext == "LOW") {
+                        console.log(pin + " checked");
+                        var url = "/digitalWrite?pin=" + pin + "&state=LOW&deviceName={{ Name }}"
+                        console.log(url);
+                        $.get(url, function (success, value) {
+                            obj = JSON.parse(success);
+                        });
+                    } else {
+                        console.log(pin + " checked");
+                        var url = "/digitalWrite?pin=" + pin + "&state=HIGH&deviceName={{ Name }}"
+                        console.log(url);
+                        $.get(url, function (success, value) {});
+                    }
+
+
+
+                } else {
+                    if (circtext == "0" || circtext == "LOW") {
+                        console.log(pin + "unchecked");
+                        var url = "/digitalRead?pin=" + pin + "&state=LOW&deviceName={{ Name }}"
+                        console.log(url);
+                        $.get(url, function (success, value) {
+                            obj = JSON.parse(success);
+                            circtext = obj['value'];
+                            console.log(circtext);
+                        });
+                    } else {
+                        console.log(pin + "unchecked");
+                        var url = "/digitalRead?pin=" + pin + "&state=HIGH&deviceName={{ Name }}"
+                        console.log(url);
+                        $.get(url, function (success, value) {
+                            obj = JSON.parse(success);
+                            circtext = obj['value'];
+                            console.log(circtext);
+                        });
+                    }
+                }
+            });
+
+            var $circle = $(".tc");
+            //var $inputs = $(".tg1");
+
+            $circle.click(function () {
+
+                var $this = $(this);
+                var pin = $this.data("pin");
+
+                var iid = $(this).data("id");
+                var $input = $('#' + iid);
+
+                console.log($input);
+                console.log(pin);
+                //$(this).css('cursor', 'pointer');
+                if ($input.prop("checked")) {
+                    $this.css('cursor', 'pointer');
+                    $(this).hover(function () {
+                        $(this).css('cursor', 'pointer');
+                    });
+
+
+                    if ($this.text() == "1" || $this.text() == "HIGH") {
+                        $(this).css('cursor', 'pointer');
+                        $this.text("LOW");
+                        $(this).css({
+                            backgroundColor: 'black'
+                        });
+                        var url = "/digitalWrite?pin=" + pin + "&state=LOW&deviceName={{ Name }}"
+                        console.log(url);
+                        $.get(url, function (success, value) {
+                            obj = JSON.parse(success);
+                            //console.log(obj['value']);
+                        });
+                    } else {
+                        $(this).css('cursor', 'pointer');
+                        $this.text("HIGH");
+                        $(this).css({
+                            backgroundColor: 'red'
+                        });
+                        //console.log(pin + " unchecked");
+                        var url = "/digitalWrite?pin=" + pin + "&state=HIGH&deviceName={{ Name }}"
+                        console.log(url);
+                        $.get(url, function (success, value) {});
+
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
